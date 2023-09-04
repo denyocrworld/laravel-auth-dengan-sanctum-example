@@ -19,9 +19,7 @@ class AuthController extends Controller
             return response()->json(['data' => $user], 200);
         }
 
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
+        return response()->json(['data' => 'Wrong email or password'], 401);
     }
 
     public function logout(Request $request)

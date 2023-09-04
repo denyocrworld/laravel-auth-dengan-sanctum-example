@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CustomerApiController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendanceController;
@@ -25,3 +25,11 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/attendance/check-in', [AttendanceController::class, 'checkIn']);
+
+Route::prefix('customers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [CustomerApiController::class, 'index']);
+    Route::post('', [CustomerApiController::class, 'store']);
+    Route::get('{id}', [CustomerApiController::class, 'show']);
+    Route::put('{id}', [CustomerApiController::class, 'update']);
+    Route::delete('{id}', [CustomerApiController::class, 'destroy']);
+});
