@@ -27,19 +27,3 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/attendance/check-in', [AttendanceController::class, 'checkIn']);
-
-Route::prefix('customers')->middleware('auth:sanctum')->group(function () {
-    Route::get('', [CustomerApiController::class, 'index']);
-    Route::post('', [CustomerApiController::class, 'store']);
-    Route::get('{id}', [CustomerApiController::class, 'show']);
-    Route::put('{id}', [CustomerApiController::class, 'update']);
-    Route::delete('{id}', [CustomerApiController::class, 'destroy']);
-});
-
-Route::prefix('products')->middleware('auth:sanctum')->group(function () {
-    Route::get('', [ProductApiController::class, 'index']);
-    Route::post('', [ProductApiController::class, 'store']);
-    Route::get('{id}', [ProductApiController::class, 'show']);
-    Route::put('{id}', [ProductApiController::class, 'update']);
-    Route::delete('{id}', [ProductApiController::class, 'destroy']);
-});
