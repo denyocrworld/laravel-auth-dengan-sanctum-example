@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,8 @@ use Illuminate\Support\Facades\Route;
 //api/refresh
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get("/products", function () {
-        return "GG FILTER 12";
-    });
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
 });
+
+Route::post('/attendance/check-in', [AttendanceController::class, 'checkIn']);
