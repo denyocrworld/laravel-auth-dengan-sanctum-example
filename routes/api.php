@@ -38,18 +38,3 @@ Route::prefix('employee')->middleware('auth:sanctum')->group(function () {
     Route::put('{id}', [EmployeeApiController::class, 'update']);
     Route::delete('{id}', [EmployeeApiController::class, 'destroy']);
 });
-Route::prefix('customers')->middleware('auth:sanctum')->group(function () {
-    Route::get('', [CustomerApiController::class, 'index']);
-    Route::post('', [CustomerApiController::class, 'store']);
-    Route::get('{id}', [CustomerApiController::class, 'show']);
-    Route::put('{id}', [CustomerApiController::class, 'update']);
-    Route::delete('{id}', [CustomerApiController::class, 'destroy']);
-});
-
-Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
-    Route::get('', [SupplierApiController::class, 'index']);
-    Route::post('', [SupplierApiController::class, 'store']);
-    Route::get('{id}', [SupplierApiController::class, 'show']);
-    Route::put('{id}', [SupplierApiController::class, 'update']);
-    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
-});
