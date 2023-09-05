@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             SuppliersTableSeeder::class,
-            // CustomersTableSeeder::class,
             //seeders @dont-delete-this-lines
         ]);
     }
