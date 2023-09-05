@@ -1,8 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-use Database\Seeders\CustomersTableSeeder;
 use Database\Seeders\UsersTableSeeder;
 use Illuminate\Database\Seeder;
 
@@ -12,8 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersTableSeeder::class,
-            SuppliersTableSeeder::class,
-            CustomersTableSeeder::class,
+            ProductsTableSeeder::class,
             //seeders @dont-delete-this-lines
         ]);
     }

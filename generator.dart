@@ -154,33 +154,35 @@ class $controllerName extends Controller
         if (\$items->lastPage() > 1) {
             \$meta['last_page_url'] = url(\$items->url(\$items->lastPage()));
         }
-        return response()->json(['data' => \$data, 'meta' => \$meta]);
+        return response()->json(['data' => \$data, 'meta' => \$meta], 200);
     }
 
     public function store(Request \$request)
     {
         \$item = $modelName::create(\$request->all());
-        return response()->json(['data' => \$item], 201);
+        return response()->json(['data' => \$item], 200);
     }
 
     public function show(\$id)
     {
         \$item = $modelName::findOrFail(\$id);
-        return response()->json(['data' => \$item]);
+        return response()->json(['data' => \$item], 200);
     }
 
     public function update(Request \$request, \$id)
     {
         \$item = $modelName::findOrFail(\$id);
         \$item->update(\$request->all());
-        return response()->json(['data' => \$item]);
+        return response()->json(['data' => \$item], 200);
     }
 
     public function destroy(\$id)
     {
         \$item = $modelName::findOrFail(\$id);
         \$item->delete();
-        return response(null, 204);
+        return response()->json([
+            'data' => \$item
+        ], 200);
     }
 }
 ''';
