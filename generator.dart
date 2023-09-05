@@ -114,7 +114,6 @@ void _updateDatabaseSeederFile(String seederClassName) {
   var lines = fileContent.split('\n');
 
   var seederUseStatement = "            $seederClassName::class,";
-
   var dontDeleteIndex =
       lines.indexOf("            //seeders @dont-delete-this-lines");
   lines.insert(dontDeleteIndex, seederUseStatement);
