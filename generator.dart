@@ -12,6 +12,7 @@ void main(List<String> args) {
 
   _generateModel(modelName, tableName);
   _generateMigration(tableName); // Generate migration script
+  _generateSeeder(tableName); // Generate migration script
   _generateApiController(apiControllerName, modelName, tableName);
   _generateApiRoutes(tableName, apiControllerName);
 
@@ -37,7 +38,7 @@ class $modelName extends Model
 }
 
 void _generateMigration(String tableName) {
-  var migrationName = 'Create${_capitalize(_singularize(tableName))}Table';
+  var migrationName = 'Create${_capitalize(tableName)}Table';
   var migrationContent = '''
 <?php
 
@@ -64,6 +65,59 @@ class $migrationName extends Migration
 ''';
 
   _createMigrationFile('database/migrations', tableName, migrationContent);
+}
+
+void _generateSeeder(String tableName) {
+  var migrationName = '${_capitalize(tableName)}TableSeeder';
+  var className = _capitalize(_singularize(tableName));
+  var migrationContent = '''
+<?php
+namespace Database\\Seeders;
+
+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;
+use Illuminate\\Database\\Seeder;
+use Illuminate\\Support\\Facades\DB;
+use Illuminate\\Support\\Facades\Hash;
+use App\\Models\\$className;
+
+// php artisan db:seed --class=$migrationName
+
+class $migrationName extends Seeder
+{
+    public function run(): void
+    {
+        $className::factory(10)->create();
+    }
+}
+
+''';
+
+  _createSeederFile('database/seeders', migrationName, migrationContent);
+  _updateDatabaseSeederFile(migrationName);
+}
+
+void _updateDatabaseSeederFile(String seederClassName) {
+  var databaseSeederPath = 'database/seeders/DatabaseSeeder.php';
+  var file = File(databaseSeederPath);
+
+  if (!file.existsSync()) {
+    print("File $databaseSeederPath does not exist.");
+    return;
+  }
+
+  var fileContent = file.readAsStringSync();
+  if (fileContent.contains(seederClassName)) return;
+
+  var lines = fileContent.split('\n');
+
+  var seederUseStatement = "            $seederClassName::class,";
+
+  var dontDeleteIndex =
+      lines.indexOf("            //seeders @dont-delete-this-lines");
+  lines.insert(dontDeleteIndex, seederUseStatement);
+
+  // Write the updated content back to the file
+  _createFile(databaseSeederPath, lines.join('\n'));
 }
 
 void _generateApiController(
@@ -212,9 +266,16 @@ bool _doesApiControllersExist(String tableName, String controllerName) {
 
 void _createMigrationFile(String directory, String tableName, String content) {
   // var timestamp = DateTime.now().millisecondsSinceEpoch;
-  var filename = '${tableName}_migrations.php';
+  var filename = '2014_10_12_000000_create_${tableName}_table.php';
   var migrationPath = '$directory/$filename';
 
+  if (File(migrationPath).existsSync()) return;
+  _createFile(migrationPath, content);
+}
+
+void _createSeederFile(String directory, String className, String content) {
+  var filename = '${className}.php';
+  var migrationPath = '$directory/$filename';
   if (File(migrationPath).existsSync()) return;
   _createFile(migrationPath, content);
 }
