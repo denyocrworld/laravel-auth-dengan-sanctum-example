@@ -13,7 +13,7 @@ class CustomersTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Customer::factory(10)->create();
+        // Customer::create();
     }
 }
 

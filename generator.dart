@@ -86,7 +86,7 @@ class $migrationName extends Seeder
 {
     public function run(): void
     {
-        $className::factory(10)->create();
+        // $className::create();
     }
 }
 

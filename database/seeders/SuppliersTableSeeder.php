@@ -13,7 +13,7 @@ class SuppliersTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Supplier::factory(10)->create();
+        // Supplier::create();
     }
 }
 
