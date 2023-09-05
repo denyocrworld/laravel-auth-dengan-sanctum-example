@@ -230,6 +230,7 @@ void _appendToApiRoutes(
 
   var fileContent = file.readAsStringSync();
   var lines = fileContent.split('\n');
+  if (fileContent.contains("prefix('$tableName')")) return;
 
   // Add import statement at the top
   if (!_doesApiControllersExist(tableName, controllerName)) {
