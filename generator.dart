@@ -106,7 +106,10 @@ void _updateDatabaseSeederFile(String seederClassName) {
   }
 
   var fileContent = file.readAsStringSync();
-  if (fileContent.contains(seederClassName)) return;
+  if (fileContent.contains("$seederClassName::class")) {
+    print("Already exists");
+    return;
+  }
 
   var lines = fileContent.split('\n');
 
@@ -115,6 +118,7 @@ void _updateDatabaseSeederFile(String seederClassName) {
   var dontDeleteIndex =
       lines.indexOf("            //seeders @dont-delete-this-lines");
   lines.insert(dontDeleteIndex, seederUseStatement);
+  print(dontDeleteIndex);
 
   // Write the updated content back to the file
   _createFile(databaseSeederPath, lines.join('\n'));
