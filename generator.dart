@@ -11,6 +11,7 @@ void main(List<String> args) {
   var apiControllerName = '${modelName}ApiController';
 
   _generateModel(modelName, tableName);
+  _generateMigration(tableName); // Generate migration script
   _generateApiController(apiControllerName, modelName, tableName);
   _generateApiRoutes(tableName, apiControllerName);
 
@@ -28,11 +29,41 @@ use Illuminate\\Database\\Eloquent\\Model;
 class $modelName extends Model
 {
     protected \$table = '$tableName';
-    protected \$fillable = ['column1', 'column2']; // Replace with appropriate column names
+    //protected \$fillable = ['column1', 'column2'];
 }
 ''';
 
   _createFile('app/Models/$modelName.php', modelContent);
+}
+
+void _generateMigration(String tableName) {
+  var migrationName = 'Create${_capitalize(_singularize(tableName))}Table';
+  var migrationContent = '''
+<?php
+
+use Illuminate\\Database\\Migrations\\Migration;
+use Illuminate\\Database\\Schema\\Blueprint;
+use Illuminate\\Support\\Facades\\Schema;
+
+class $migrationName extends Migration
+{
+    public function up()
+    {
+        Schema::create('$tableName', function (Blueprint \$table) {
+            \$table->id();
+            // Define your table columns here
+            \$table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('$tableName');
+    }
+}
+''';
+
+  _createMigrationFile('database/migrations', tableName, migrationContent);
 }
 
 void _generateApiController(
@@ -101,7 +132,6 @@ class $controllerName extends Controller
 }
 
 void _generateApiRoutes(String tableName, String controllerName) {
-  if (_doesApiRoutesExist(tableName)) return;
   var apiRoutesContent = '''
 Route::prefix('$tableName')->middleware('auth:sanctum')->group(function () {
     Route::get('', [$controllerName::class, 'index']);
@@ -113,30 +143,6 @@ Route::prefix('$tableName')->middleware('auth:sanctum')->group(function () {
 ''';
 
   _appendToApiRoutes(apiRoutesContent, tableName, controllerName);
-}
-
-bool _doesApiRoutesExist(String tableName) {
-  var path = 'routes/api.php';
-  var file = File(path);
-
-  if (!file.existsSync()) {
-    return false;
-  }
-
-  var fileContent = file.readAsStringSync();
-  return fileContent.contains("Route::prefix('$tableName')");
-}
-
-bool _doesApiControllersExist(String tableName, String controllerName) {
-  var path = 'routes/api.php';
-  var file = File(path);
-
-  if (!file.existsSync()) {
-    return false;
-  }
-
-  var fileContent = file.readAsStringSync();
-  return fileContent.contains("use App\\Http\\Controllers\\$controllerName");
 }
 
 void _createFile(String path, String content) {
@@ -178,4 +184,37 @@ void _appendToApiRoutes(
   // Add the new content
   lines.add(content);
   _createFile(path, lines.join('\n'));
+}
+
+bool _doesApiRoutesExist(String tableName) {
+  var path = 'routes/api.php';
+  var file = File(path);
+
+  if (!file.existsSync()) {
+    return false;
+  }
+
+  var fileContent = file.readAsStringSync();
+  return fileContent.contains("Route::prefix('$tableName')");
+}
+
+bool _doesApiControllersExist(String tableName, String controllerName) {
+  var path = 'routes/api.php';
+  var file = File(path);
+
+  if (!file.existsSync()) {
+    return false;
+  }
+
+  var fileContent = file.readAsStringSync();
+  return fileContent.contains("use App\\Http\\Controllers\\$controllerName");
+}
+
+void _createMigrationFile(String directory, String tableName, String content) {
+  // var timestamp = DateTime.now().millisecondsSinceEpoch;
+  var filename = '${tableName}_migrations.php';
+  var migrationPath = '$directory/$filename';
+
+  if (File(migrationPath).existsSync()) return;
+  _createFile(migrationPath, content);
 }

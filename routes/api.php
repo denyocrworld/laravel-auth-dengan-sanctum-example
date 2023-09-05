@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\SupplierApiController;
 use App\Http\Controllers\EmployeeApiController;
 
 use App\Http\Controllers\ProductApiController;
@@ -35,4 +36,92 @@ Route::prefix('employee')->middleware('auth:sanctum')->group(function () {
     Route::get('{id}', [EmployeeApiController::class, 'show']);
     Route::put('{id}', [EmployeeApiController::class, 'update']);
     Route::delete('{id}', [EmployeeApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
+});
+
+Route::prefix('suppliers')->middleware('auth:sanctum')->group(function () {
+    Route::get('', [SupplierApiController::class, 'index']);
+    Route::post('', [SupplierApiController::class, 'store']);
+    Route::get('{id}', [SupplierApiController::class, 'show']);
+    Route::put('{id}', [SupplierApiController::class, 'update']);
+    Route::delete('{id}', [SupplierApiController::class, 'destroy']);
 });
